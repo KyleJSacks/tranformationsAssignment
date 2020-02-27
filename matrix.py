@@ -27,18 +27,31 @@ def make_scale( x, y, z ):
 
 def make_rotX( theta ):
     theta = (theta * math.pi) / 180
+    m = new_matrix()
+    m[1][1] = math.cos(theta)
+    m[2][1] = 0 - math.sin(theta)
+    m[1][2] = math.sin(theta)
+    m[2][2] = math.cos(theta)
+    return m
+
+def make_rotY( theta ):
+    theta = (theta * math.pi) / 180
+    m = new_matrix()
+    m[0][0] = math.cos(theta)
+    m[0][2] = 0 - math.sin(theta)
+    m[2][0] = math.sin(theta)
+    m[2][2] = math.cos(theta)
+    return m
+    
+
+def make_rotZ( theta ):
+    theta = (theta * math.pi) / 180
+    m = new_matrix()
     m[0][0] = math.cos(theta)
     m[1][0] = 0 - math.sin(theta)
     m[0][1] = math.sin(theta)
     m[1][1] = math.cos(theta)
     return m
-
-def make_rotY( theta ):
-    theta = (theta * math.pi) / 180
-
-def make_rotZ( theta ):
-    theta = (theta * math.pi) / 180
-
 #print the matrix such that it looks like
 #the template in the top comment
 def print_matrix( matrix ):

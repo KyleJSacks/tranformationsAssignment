@@ -7,7 +7,7 @@ screen = new_screen()
 color = [ 0, 255, 0 ]
 edges = []
 transform = new_matrix()
+ident(transform)
 
-transform = make_rotX(180)
-print_matrix(transform)
-#parse_file( 'script', edges, transform, screen, color )
+
+parse_file( 'script', edges, transform, screen, color )
