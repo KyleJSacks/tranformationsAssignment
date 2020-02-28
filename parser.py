@@ -39,32 +39,33 @@ def parse_file( fname, points, transform, screen, color ):
 	    c = cmnds[i]
 	    c = c.strip('\n')
 	    if c == 'line':
-		print(c)
 		args = cmnds[i + 1].strip('\n').split()
 		i += 1
-		print(args)
-		add_edge(points, args[0], args[1], args[2], args[3], args[4], args[5])
+		add_edge(points, int(args[0]), int(args[1]), int(args[2]), int(args[3]), int(args[4]), int(args[5]))
 	    elif c == 'ident':
 		ident(transform)
 	    elif c == 'scale':
 		args = cmnds[i + 1].strip('\n').split()
 		i += 1
-		matrix_multiply(make_scale(args[0], args[1], args[2]), transform)
-	    elif c == 'translate':
+		matrix_mult(make_scale(int(args[0]), int(args[1]), int(args[2])), transform)
+	    elif c == 'move':
 		args = cmnds[i + 1].strip('\n').split()
 		i += 1
-		matrix_multiply(make_scale(args[0], args[1], args[2]), transform)
+		matrix_mult(make_translate(int(args[0]), int(args[1]), int(args[2])), transform)
 	    elif c == 'rotate':
 		args = cmnds[i + 1].strip('\n').split()
 		i += 1
 		if args[0] == 'x':
-		    matrix_multiply(make_rotX(args[1]), transform)
+		    matrix_mult(make_rotX(int(args[1])), transform)
+		    print_matrix(make_rotX(int(args[1])))
 		elif args[0] == 'y':
-		    matrix_multiply(make_rotY(args[1]), transform)
+		    matrix_mult(make_rotY(int(args[1])), transform)
+		    print_matrix(make_rotY(int(args[1])))
 		else:
-		    matrix_multiply(make_rotZ(args[1]), transform)
+		    matrix_mult(make_rotZ(int(args[1])), transform)
+		    print_matrix(make_rotZ(int(args[1])))
 	    elif c == 'apply':
-		matrix_multiply(transform, points)
+		matrix_mult(transform, points)
 	    elif c == 'display':
 		clear_screen(screen)
 		draw_lines(points, screen, color)
@@ -73,7 +74,7 @@ def parse_file( fname, points, transform, screen, color ):
 		args = cmnds[i + 1].strip('\n').split()
 		i += 1
 		clear_screen(screen)
-		save_ppm(screen, fname)
+		save_ppm(screen, args[0])
 	    elif c == 'quit':
 		break
 	    i += 1
