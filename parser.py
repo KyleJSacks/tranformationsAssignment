@@ -33,50 +33,47 @@ See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
     with open(fname, 'r') as f:
-	cmnds = f.readlines()
-	i = 0
-	while True:
-	    c = cmnds[i]
-	    c = c.strip('\n')
-	    if c == 'line':
-		args = cmnds[i + 1].strip('\n').split()
-		i += 1
-		add_edge(points, int(args[0]), int(args[1]), int(args[2]), int(args[3]), int(args[4]), int(args[5]))
-	    elif c == 'ident':
-		ident(transform)
-	    elif c == 'scale':
-		args = cmnds[i + 1].strip('\n').split()
-		i += 1
-		matrix_mult(make_scale(int(args[0]), int(args[1]), int(args[2])), transform)
-	    elif c == 'move':
-		args = cmnds[i + 1].strip('\n').split()
-		i += 1
-		matrix_mult(make_translate(int(args[0]), int(args[1]), int(args[2])), transform)
-	    elif c == 'rotate':
-		args = cmnds[i + 1].strip('\n').split()
-		i += 1
-		if args[0] == 'x':
-		    matrix_mult(make_rotX(int(args[1])), transform)
-		    print_matrix(make_rotX(int(args[1])))
-		elif args[0] == 'y':
-		    matrix_mult(make_rotY(int(args[1])), transform)
-		    print_matrix(make_rotY(int(args[1])))
-		else:
-		    matrix_mult(make_rotZ(int(args[1])), transform)
-		    print_matrix(make_rotZ(int(args[1])))
-	    elif c == 'apply':
-		matrix_mult(transform, points)
-	    elif c == 'display':
-		clear_screen(screen)
-		draw_lines(points, screen, color)
-		display(screen)
-	    elif c == 'save':
-		args = cmnds[i + 1].strip('\n').split()
-		i += 1
-		clear_screen(screen)
-		save_ppm(screen, args[0])
-	    elif c == 'quit':
-		break
-	    i += 1
+        cmnds = f.readlines()
+        i = 0
+        while True:
+            c = cmnds[i]
+            c = c.strip('\n')
+            if c == 'line':
+                args = cmnds[i + 1].strip('\n').split()
+                i += 1
+                add_edge(points, int(args[0]), int(args[1]), int(args[2]), int(args[3]), int(args[4]), int(args[5]))
+            elif c == 'ident':
+                ident(transform)
+            elif c == 'scale':
+                args = cmnds[i + 1].strip('\n').split()
+                i += 1
+                matrix_mult(make_scale(int(args[0]), int(args[1]), int(args[2])), transform)
+            elif c == 'move':
+                args = cmnds[i + 1].strip('\n').split()
+                i += 1
+                matrix_mult(make_translate(int(args[0]), int(args[1]), int(args[2])), transform)
+            elif c == 'rotate':
+                args = cmnds[i + 1].strip('\n').split()
+                i += 1
+                if args[0] == 'x':
+                    matrix_mult(make_rotX(int(args[1])), transform)
+                elif args[0] == 'y':
+                    matrix_mult(make_rotY(int(args[1])), transform)
+                else:
+                    matrix_mult(make_rotZ(int(args[1])), transform)
+            elif c == 'apply':
+                matrix_mult(transform, points)
+            elif c == 'display':
+                clear_screen(screen)
+                draw_lines(points, screen, color)
+                display(screen)
+            elif c == 'save':
+                args = cmnds[i + 1].strip('\n').split()
+                i += 1
+                clear_screen(screen)
+                save_ppm(screen, args[0])
+            elif c == 'quit':
+                break
+            i += 1
 				
 		
